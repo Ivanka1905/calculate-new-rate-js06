@@ -7,18 +7,14 @@ function calculateNewRate(winner, loser) {
   } else {
     if (winner === 0) {
       newRate = loser.toFixed(1);
-      // return `Рейтинг переможця ${newRate}`;
     } else if (winner < loser) {
-      newRate = (loser - winner + 5) / 3+winner;
-      // return `Рейтинг переможця ${newRate.toFixed(1)}`;
+      newRate = (loser - winner + 5) / 3 + winner;
     } else {
       const diff = winner - loser;
       if (diff >= 0 && diff <= 2) {
         newRate = winner + 2;
-        // return `Рейтинг переможця ${newRate.toFixed(1)}`;
       } else if (diff > 2 && diff < 20) {
         newRate = winner + 1;
-        // return `Рейтинг переможця ${newRate.toFixed(1)}`;
       } else if (diff >= 20) {
         newRate = winner;
       }
