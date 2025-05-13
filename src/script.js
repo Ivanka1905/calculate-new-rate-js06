@@ -1,12 +1,24 @@
 "use strict";
 
+/**
+ * @param {number} winner
+ * @param {number} loser
+ * @returns {number} new rating of winner
+ */
+
 function calculateNewRate(winner, loser) {
   let newRate = 0;
-  if (winner < 0 || loser < 0) {
+
+  winner = Number(winner);
+  loser = Number(loser);
+
+  if (Number.isNaN(winner - loser)) {
+    return "Не коректне введення";
+  } else if (winner < 0 || loser < 0) {
     return "Рейтинг не може бути менше 0";
   } else {
     if (winner === 0) {
-      newRate = loser.toFixed(1);
+      newRate = loser;
     } else if (winner < loser) {
       newRate = (loser - winner + 5) / 3 + winner;
     } else {
@@ -23,4 +35,4 @@ function calculateNewRate(winner, loser) {
   }
 }
 
-console.log(calculateNewRate(8.456, 5.23563));
+console.log(calculateNewRate(21.42, 48.5654));
