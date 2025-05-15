@@ -7,32 +7,28 @@
  */
 
 function calculateNewRate(winner, loser) {
-  let newRate = 0;
+  if (winner < 0 || loser < 0) return -2;
+  if (winner === 0) return loser;
 
-  winner = Number(winner);
-  loser = Number(loser);
+  const diff = winner - loser;
 
-  if (Number.isNaN(winner - loser)) {
-    return "Не коректне введення";
-  } else if (winner < 0 || loser < 0) {
-    return "Рейтинг не може бути менше 0";
-  } else {
-    if (winner === 0) {
-      newRate = loser;
-    } else if (winner < loser) {
-      newRate = (loser - winner + 5) / 3 + winner;
-    } else {
-      const diff = winner - loser;
-      if (diff >= 0 && diff <= 2) {
-        newRate = winner + 2;
-      } else if (diff > 2 && diff < 20) {
-        newRate = winner + 1;
-      } else if (diff >= 20) {
-        newRate = winner;
-      }
-    }
-    return `Рейтинг переможця ${newRate.toFixed(1)}`;
-  }
+  if (Number.isNaN(diff)) return -1;
+  if (diff < 0) return (loser - winner + 5) / 3 + winner;
+  if (diff <= 2) return winner + 2;
+  if (diff < 20) return winner + 1;
+  return winner;
 }
 
-console.log(calculateNewRate(21.42, 48.5654));
+/**
+ * @param {number} number
+ * @returns {string} message with calculated new rating
+ */
+
+function showMessage(number) {
+  if (number === -2) return "Рейтинг не може бути менше нуля";
+  if (number === -1) return "Не коректне введення";
+  return `Рейтинг переможця ${number.toFixed(1)}`;
+}
+
+const newRate = calculateNewRate(13, 6);
+console.log(showMessage(newRate));
